@@ -2,6 +2,7 @@
 export default {
   name: 'App',
   data: () => ({
+    database:null,
     todos: [],
     newTodo: '',
     editedTodo: null,
@@ -73,6 +74,12 @@ export default {
     editTodo(todo) {
       this.beforeEditCache = todo.title
       this.editedTodo = todo
+    },
+
+    async getDatabase() {
+      return new Promise((resolve, reject) => {
+
+      })
     },
 
     pluralize(word, count) {
