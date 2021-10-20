@@ -119,6 +119,9 @@ export default {
   <section class="todoapp">
     <header class="header">
       <h1>todos</h1>
+      <h2>Database</h2>
+      <p>{{ database }}</p>
+      <button @click="getDatabase">Get Database</button>
       <input
         class="new-todo"
         autofocus
