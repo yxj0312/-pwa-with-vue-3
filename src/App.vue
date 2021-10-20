@@ -77,8 +77,19 @@ export default {
     },
 
     async getDatabase() {
-      return new Promise((resolve, reject) => {
-
+       return new Promise((resolve, reject) => {
+        if (this.database) {
+          resolve(this.database)
+        }
+        let request = window.indexedDB.open('todomvcDB', 1)
+        request.onerror = event => {
+          console.error('ERROR: Unable to open database', event)
+          reject('Error')
+        }
+        request.onsuccess = event => {
+          this.database = event.target.result
+          resolve(this.database)
+        }
       })
     },
 
