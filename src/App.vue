@@ -2,7 +2,7 @@
 export default {
   name: 'App',
   data: () => ({
-    database:null,
+    database: null,
     todos: [],
     newTodo: '',
     editedTodo: null,
@@ -77,7 +77,7 @@ export default {
     },
 
     async getDatabase() {
-       return new Promise((resolve, reject) => {
+      return new Promise((resolve, reject) => {
         if (this.database) {
           resolve(this.database)
         }
@@ -89,6 +89,14 @@ export default {
         request.onsuccess = event => {
           this.database = event.target.result
           resolve(this.database)
+        }
+
+        request.onupgradeneeded = event => {
+          let database = event.target.result
+          database.createObjectStore('todos', {
+            autoIncrement: true,
+            keyPath: 'id'
+          })
         }
       })
     },
@@ -132,12 +140,7 @@ export default {
       />
     </header>
     <section class="main" v-show="todos.length">
-      <input
-        id="toggle-all"
-        class="toggle-all"
-        type="checkbox"
-        v-model="allDone"
-      />
+      <input id="toggle-all" class="toggle-all" type="checkbox" v-model="allDone" />
       <label for="toggle-all">Mark all as complete</label>
       <ul class="todo-list">
         <li
@@ -178,36 +181,28 @@ export default {
             @click="visibility = 'all'"
             :class="{ selected: visibility == 'all' }"
             class="btn"
-          >
-            All
-          </button>
+          >All</button>
         </li>
         <li>
           <button
             @click="visibility = 'active'"
             :class="{ selected: visibility == 'active' }"
             class="btn"
-          >
-            Active
-          </button>
+          >Active</button>
         </li>
         <li>
           <button
             @click="visibility = 'completed'"
             :class="{ selected: visibility == 'completed' }"
             class="btn"
-          >
-            Completed
-          </button>
+          >Completed</button>
         </li>
       </ul>
       <button
         class="clear-completed"
         @click="removeCompleted"
         v-show="todos.length > remaining"
-      >
-        Clear completed
-      </button>
+      >Clear completed</button>
     </footer>
   </section>
   <footer class="info">
@@ -220,8 +215,8 @@ export default {
 </template>
 
 <style>
-@import './styles/todomvc-base.css';
-@import './styles/todomvc-index.css';
+@import "./styles/todomvc-base.css";
+@import "./styles/todomvc-index.css";
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
