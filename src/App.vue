@@ -141,6 +141,9 @@ export default {
     updateTodo(todo) {
       this.todos.find(item => item === todo).completed = !todo.completed
     }
+  },
+  async created() {
+    this.todos = await this.getTodoStore()
   }
 }
 </script>
