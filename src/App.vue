@@ -101,6 +101,28 @@ export default {
       })
     },
 
+    async getTodoStore() {
+      this.database = await this.getDatabase()
+      return new Promise((resolve, reject) => {
+        const transaction = this.database.transaction('todos', 'readonly')
+        const store = transaction.objectStore('todos')
+        let todoList = []
+        store.openCursor().onsuccess = event => {
+          const cursor = event.target.result
+          if (cursor) {
+            todoList.push(cursor.value)
+            cursor.continue()
+          }
+        }
+        transaction.oncomplete = () => {
+          resolve(todoList)
+        }
+        transaction.onerror = event => {
+          reject(event)
+        }
+      })
+    },
+
     pluralize(word, count) {
       return word + (count === 1 ? '' : 's')
     },
