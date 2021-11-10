@@ -81,7 +81,7 @@ export default {
         if (this.database) {
           resolve(this.database)
         }
-        let request = window.indexedDB.open('todomvcDB', 1)
+        let request = window.indexedDB.open('todomvcDB', 2)
         request.onerror = event => {
           console.error('ERROR: Unable to open database', event)
           reject('Error')
@@ -104,6 +104,7 @@ export default {
     async getTodoStore() {
       this.database = await this.getDatabase()
       return new Promise((resolve, reject) => {
+
         const transaction = this.database.transaction('todos', 'readonly')
         const store = transaction.objectStore('todos')
         let todoList = []
