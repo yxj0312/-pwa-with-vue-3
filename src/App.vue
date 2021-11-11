@@ -67,7 +67,10 @@ export default {
       }
       this.editedTodo = null
       todo.title = todo.title.trim()
-      this.saveTodo(todo)
+      this.saveTodo({
+        ...todo,
+        title: todo.title
+      })
       if (!todo.title) {
         this.removeTodo(todo)
       }
