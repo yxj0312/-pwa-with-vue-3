@@ -52,6 +52,7 @@ export default {
         return
       }
       this.todos.push(todoItem)
+      this.saveTodo(todoItem)
       this.newTodo = ''
     },
 
@@ -170,10 +171,7 @@ export default {
 <template>
   <section class="todoapp">
     <header class="header">
-      <h1>todos</h1>
-      <h2>Database</h2>
-      <p>{{ database }}</p>
-      <button @click="getDatabase">Get Database</button>
+      <h1>todos</h1>     
       <input
         class="new-todo"
         autofocus
