@@ -139,6 +139,24 @@ export default {
       this.todos.splice(index, 1)
     },
 
+    async saveTodo (todo) {
+      this.database = await this.getDatabase()
+
+      return new Promise((resolve,reject) => {
+        const transaction = this.database.transaction('todos', 'readwrite')
+        const store = transaction.objectStore('todos')
+
+        store.put(todo)
+        transaction.oncomplete = () => {
+          resolve('Item successfully saved.')
+        }
+
+        transaction.onerror = event => {
+          reject(event)
+        }
+      })
+    },
+
     updateTodo(todo) {
       this.todos.find(item => item === todo).completed = !todo.completed
     }
