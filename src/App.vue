@@ -32,6 +32,9 @@ export default {
       set(value) {
         this.todos.forEach(todo => {
           todo.completed = value
+          this.saveTodo({
+            ...todo
+          })
         })
       }
     }
@@ -164,6 +167,9 @@ export default {
 
     updateTodo(todo) {
       this.todos.find(item => item === todo).completed = !todo.completed
+      this.saveTodo({
+        ...todo
+      })
     }
   },
   async created() {
