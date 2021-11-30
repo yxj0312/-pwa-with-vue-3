@@ -164,6 +164,7 @@ export default {
     removeTodo(todo) {
       const index = this.todos.indexOf(todo)
       this.todos.splice(index, 1)
+      this.deleteTodo(todo)
     },
 
     async saveTodo (todo) {
