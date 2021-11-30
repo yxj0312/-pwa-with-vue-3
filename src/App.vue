@@ -157,7 +157,11 @@ export default {
 
     removeCompleted() {
       this.todos = this.todos.filter(item => {
-        return !item.completed
+        if (item.completed) {
+          this.deleteTodo(item)
+        } else {
+          return !item.completed
+        }
       })
     },
 
