@@ -64,6 +64,25 @@ export default {
       todo.title = this.beforeEditCache
     },
 
+    async deleteTodo(todo) {
+      this.database = await this.getDatabase()
+
+      return new Promise((resolve, reject) => {
+        const transaction = this.database.transaction('todos', 'readwrite')
+        const store = transaction.objectStore('todos')
+
+        store.delete(todo.id)
+
+        transaction.oncomplete = () => {
+          resolve('Item successfully deleted.')
+        }
+
+        transaction.onerror = event => {
+          reject(event)
+        }
+      })
+    },
+
     doneEdit(todo) {
       if (!this.editedTodo) {
         return
