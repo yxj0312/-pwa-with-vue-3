@@ -5,7 +5,9 @@
         </div>
         <div class="flex flex-col flex-grow">
             <!-- Main Content -->
-            <editor-content :editor="editor" />
+            <div class="flex flex-col flex-grow overflow-auto">
+                <editor-content :editor="editor" />
+            </div>
         </div>
     </div>
 </template>

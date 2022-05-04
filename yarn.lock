@@ -1154,6 +1154,15 @@
     "magic-string" "^0.25.0"
     "string.prototype.matchall" "^4.0.6"
 
+"@tailwindcss/typography@^0.5.2":
+  "integrity" "sha512-coq8DBABRPFcVhVIk6IbKyyHUt7YTEC/C992tatFB+yEx5WGBQrCgsSFjxHUr8AWXphWckadVJbominEduYBqw=="
+  "resolved" "https://registry.npmjs.org/@tailwindcss/typography/-/typography-0.5.2.tgz"
+  "version" "0.5.2"
+  dependencies:
+    "lodash.castarray" "^4.4.0"
+    "lodash.isplainobject" "^4.0.6"
+    "lodash.merge" "^4.6.2"
+
 "@tiptap/core@^2.0.0-beta.1", "@tiptap/core@^2.0.0-beta.175":
   "integrity" "sha512-dDf+2GtifskNLysn49kaCIz0o5hf6VDZ8J7jSQAfoPDEkEkfw9OKhWrR7NzWW6J34CSJreFDRiWkGt8Qz283Vg=="
   "resolved" "https://registry.npmjs.org/@tiptap/core/-/core-2.0.0-beta.175.tgz"
@@ -4650,6 +4659,11 @@
   dependencies:
     "p-locate" "^4.1.0"
 
+"lodash.castarray@^4.4.0":
+  "integrity" "sha1-wCUTUV4wna3dTCTGDP3c9ZdtkRU="
+  "resolved" "https://registry.npmjs.org/lodash.castarray/-/lodash.castarray-4.4.0.tgz"
+  "version" "4.4.0"
+
 "lodash.debounce@^4.0.8":
   "integrity" "sha1-gteb/zCmfEAF/9XiUVMArZyk168="
   "resolved" "https://registry.npmjs.org/lodash.debounce/-/lodash.debounce-4.0.8.tgz"
@@ -4659,6 +4673,11 @@
   "integrity" "sha512-3j8wdDzYuWO3lM3Reg03MuQR957t287Rpcxp1njpEa8oDrikb+FwGdW3n+FELh/A6qib6yPit0j/pv9G/yeAqA=="
   "resolved" "https://registry.npmjs.org/lodash.defaultsdeep/-/lodash.defaultsdeep-4.6.1.tgz"
   "version" "4.6.1"
+
+"lodash.isplainobject@^4.0.6":
+  "integrity" "sha1-fFJqUtibRcRcxpC4gWO+BJf1UMs="
+  "resolved" "https://registry.npmjs.org/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz"
+  "version" "4.0.6"
 
 "lodash.kebabcase@^4.1.1":
   "integrity" "sha1-hImxyw0p/4gZXM7KRI/21swpXDY="
@@ -6569,7 +6588,7 @@
     "string-width" "^4.2.3"
     "strip-ansi" "^6.0.1"
 
-"tailwindcss@^3.0.24":
+"tailwindcss@^3.0.24", "tailwindcss@>=3.0.0 || >= 3.0.0-alpha.1 || insiders":
   "integrity" "sha512-H3uMmZNWzG6aqmg9q07ZIRNIawoiEcNFKDfL+YzOPuPsXuDXxJxB9icqzLgdzKNwjG3SAro2h9SYav8ewXNgig=="
   "resolved" "https://registry.npmjs.org/tailwindcss/-/tailwindcss-3.0.24.tgz"
   "version" "3.0.24"
