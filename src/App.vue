@@ -28,4 +28,33 @@ const editor = useEditor({
   }
 })
 
+let database = null
+
+const getDatabase = async () => {
+      return new Promise((resolve, reject) => {
+        if (database) {
+          resolve(database)
+        }
+        let request = window.indexedDB.open('note', 2)
+        request.onerror = event => {
+          console.error('ERROR: Unable to open database', event)
+          reject('Error')
+        }
+        request.onsuccess = event => {
+          database = event.target.result
+          resolve(database)
+        }
+
+        request.onupgradeneeded = event => {
+          let database = event.target.result
+          database.createObjectStore('notes', {
+            autoIncrement: true,
+            keyPath: 'id'
+          })
+        }
+      })
+    }
+
+    await getDatabase();
+
 </script>
