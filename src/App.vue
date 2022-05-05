@@ -21,6 +21,11 @@ const editor = useEditor({
   extensions: [
     StarterKit,
   ],
+  editorProps: {
+      attributes: {
+          class: "prose my-6 mx-auto focus:outline-one"
+      }
+  }
 })
 
 </script>
