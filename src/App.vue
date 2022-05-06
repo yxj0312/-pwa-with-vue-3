@@ -35,7 +35,7 @@ const getDatabase = async () => {
         if (database) {
           resolve(database)
         }
-        let request = window.indexedDB.open('note', 2)
+        let request = window.indexedDB.open('notes', 2)
         request.onerror = event => {
           console.error('ERROR: Unable to open database', event)
           reject('Error')
@@ -55,6 +55,6 @@ const getDatabase = async () => {
       })
     }
 
-    await getDatabase();
+    getDatabase();
 
 </script>
