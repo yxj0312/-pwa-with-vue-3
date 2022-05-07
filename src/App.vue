@@ -50,9 +50,10 @@ const getDatabase = async () => {
 
     request.onupgradeneeded = event => {
       let database = event.target.result
+      // database.deleteObjectStore('notes')
       database.createObjectStore('notes', {
-        autoIncrement: true,
-        keyPath: 'id'
+        // autoIncrement: true,
+        keyPath: 'created'
       })
     }
   })
@@ -70,9 +71,10 @@ const saveNote = async () => {
       reject('Error')
     }
 
+
     let now = new Date();
     transaction.objectStore('notes').add({
-      content: editor.getHTML(),
+      content: editor.value.getHTML(),
       created: now.getTime()
     })
   })
