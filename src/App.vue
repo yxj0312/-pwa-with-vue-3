@@ -1,7 +1,21 @@
 <template>
+
   <div class="flex w-screen h-screen text-gray-700">
     <div class="flex flex-col flex-shrink-0 w-64 border-r border-gray-300 bg-gray-100">
       <!-- Siderbar -->
+      
+      <div class="h-0 overflow-auto flex-grow">
+        <div class="mt-4">
+          <a href="#" 
+            class="flex item-center h-8 text-sm pl-8 pr-3"
+            v-for="note in notes"
+            :key="note.created"  
+          >
+            <span class="ml-2 leading-none">{{ new Date(note.created).toLocaleString() }}</span>
+          </a>
+        </div>
+      </div>
+      
     </div>
     <div class="flex flex-col flex-grow">
       <!-- Main Content -->
@@ -33,6 +47,7 @@ const editor = useEditor({
 
 let database = null
 
+
 const getDatabase = async () => {
   return new Promise((resolve, reject) => {
     if (database) {
@@ -61,6 +76,7 @@ const getDatabase = async () => {
 
 const saveNote = async () => {
   return new Promise((resolve, reject) => {
+    console.log(database)
     let transaction = database.transaction('notes', 'readwrite')
     transaction.oncomplete = e => {
       resolve();
@@ -78,9 +94,21 @@ const saveNote = async () => {
       created: now.getTime()
     })
   })
-  
+}
+
+const getNotes = async () => {
+  database = await getDatabase()
+  return new Promise((resolve) => {
+    database.transaction('notes', 'readonly').
+    objectStore('notes')
+    .getAll()
+    .onsuccess = e => {
+      resolve(e.target.result)
+    }
+  })
 }
 
 getDatabase();
-
+let notes = getNotes();
+console.log(notes)
 </script>
