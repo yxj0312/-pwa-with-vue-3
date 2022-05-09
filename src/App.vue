@@ -88,11 +88,14 @@ export default {
 
         let now = new Date();
 
-        console.log('hello')
-        transaction.objectStore('notes').add({
+        let note = {
           content: this.editor.getHTML(),
           created: now.getTime()
-        })
+        }
+        
+        this.notes.unshift(note)
+        
+        transaction.objectStore('notes').add(note)
       })
     },
 
@@ -111,7 +114,8 @@ export default {
 
   async created() {
     this.database = await this.getDatabase()
-    this.notes = await this.getNotes()
+    let notes = await this.getNotes()
+    this.notes = notes.reverse()
   }
 
 }
