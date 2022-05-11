@@ -5517,11 +5517,6 @@
     "unicode-match-property-ecmascript" "^2.0.0"
     "unicode-match-property-value-ecmascript" "^2.0.0"
 
-"register-service-worker@^1.7.1":
-  "integrity" "sha512-CiD3ZSanZqcMPRhtfct5K9f7i3OLCcBBWsJjLh1gW9RO/nS94sVzY59iS+fgYBOBqaBpf4EzfqUF3j9IG+xo8A=="
-  "resolved" "https://registry.npmjs.org/register-service-worker/-/register-service-worker-1.7.2.tgz"
-  "version" "1.7.2"
-
 "regjsgen@^0.6.0":
   "integrity" "sha512-ozE883Uigtqj3bx7OhL1KNbCzGyW2NQZPl6Hs09WTvCuZD5sTI4JY58bkbQWa/Y9hxIsvJ3M8Nbf7j54IqeZbA=="
   "resolved" "https://registry.npmjs.org/regjsgen/-/regjsgen-0.6.0.tgz"
