@@ -6,7 +6,8 @@
 
       <div class="h-0 overflow-auto flex-grow">
         <div class="mt-4">
-          <a href="#" class="flex item-center h-8 text-sm pl-8 pr-3" v-for="note in notes" :key="note.created">
+          <a href="#" class="flex item-center h-8 text-sm pl-8 pr-3" v-for="note in notes" :key="note.created"
+          @click.prevent="openNote(note)">
             <span class="ml-2 leading-none">{{ new Date(note.created).toLocaleString() }}</span>
           </a>
         </div>
@@ -109,7 +110,12 @@ export default {
       resolve(e.target.result)
     }
   })
-}
+  },
+
+  openNote(note) {
+    this.editor.commands.setContent(note.content)
+  }
+
   },
 
   async created() {
