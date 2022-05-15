@@ -8,7 +8,7 @@
       <div class="h-0 overflow-auto flex-grow">
         <div class="flex items-center h-8 px-3 group mt-4">
           <div class="flex items-center flex-grow focus:outline-none">
-            <a href="#" class="ml-2 leading-none font-medium text-sm">
+            <a href="#" class="ml-2 leading-none font-medium text-sm" @click.prevent="showAllNotes">
               All Notes
             </a>
           </div>
@@ -136,6 +136,34 @@ export default {
       this.editor.commands.setContent(note.content);
       this.activeNote = note;
     },
+
+     showAllNotes() {
+      // clear the editor
+      this.editor.commands.clearContent();
+      // set the activeNote as an empty object
+      this.activeNote = {};
+    },
+
+    addNewNote() {
+      // add a blank note to the database
+      return new Promise((resolve) => {
+        let transaction = this.database.transaction('notes', 'readwrite');
+        transaction.oncomplete = () => {
+          resolve();
+        }
+        let now = new Date();
+        let note = {
+          content: '',
+          created: now.getTime()
+        };
+        // add that same note to the sidebar
+        this.notes.unshift(note);
+        // set the activeNote as the new note
+        this.activeNote = note;
+        transaction.objectStore('notes').add(note);
+      });
+    }
+  
   },
 
   async created() {
