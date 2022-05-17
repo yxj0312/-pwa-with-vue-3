@@ -72,7 +72,7 @@ const editor = useEditor({
   extensions: [StarterKit],
   editorProps: {
     attributes: {
-      class: "prose my-6 mx-auto focus:outline-one",
+      class: "prose my-6 mx-auto focus:outline-one bg-red-100",
     },
   },
 });
