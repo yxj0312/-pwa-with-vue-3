@@ -115,24 +115,49 @@ export default {
 
     async saveNote() {
       return new Promise((resolve, reject) => {
-        let transaction = this.database.transaction("notes", "readwrite");
-        transaction.oncomplete = () => {
-          resolve();
-        };
-        transaction.onerror = () => {
-          reject("Error");
-        };
+        let noteStore = this.database.transaction('notes', 'readwrite').objectStore('notes')
+        let noteRequest = noteStore
+          .get(this.activeNote.created)
 
-        let now = new Date();
+        noteRequest.onerror = () => {
+          reject('Error saving the note in the database.')
+        }
 
-        let note = {
-          content: this.editor.getHTML(),
-          created: now.getTime(),
-        };
+        noteRequest.onsuccess = e => {
+          let note = e.target.result
+          note.content = this.editor.getHTML()
 
-        this.notes.unshift(note);
+          let updateRequest = noteStore
+          .put(note)
 
-        transaction.objectStore("notes").add(note);
+          updateRequest.onerror = () => {
+            reject('Error storing the updated note in the database.')
+          }
+
+          updateRequest.onsuccess = () => {
+            let noteIndex = this.notes.findIndex(n =>  n.created === note.created)
+            this.notes[noteIndex] = note
+            resolve()
+          }
+        }
+        // let transaction = this.database.transaction("notes", "readwrite");
+        // transaction.oncomplete = () => {
+        //   resolve();
+        // };
+        // transaction.onerror = () => {
+        //   reject("Error");
+        // };
+
+        // let now = new Date();
+
+        // let note = {
+        //   content: this.editor.getHTML(),
+        //   created: now.getTime(),
+        // };
+
+        // this.notes.unshift(note);
+
+        // transaction.objectStore("notes").add(note);
       });
     },
 
