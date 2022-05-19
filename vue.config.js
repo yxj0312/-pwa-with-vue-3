@@ -1,5 +1,9 @@
 module.exports = {
     pwa: {
-        name: 'Todo Mastery'
+        name: 'Todo Mastery',
+        workboxOptions: {
+            skipWaiting: true
+        }
+
     }
 }
