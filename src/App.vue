@@ -39,7 +39,7 @@
         <editor-content :editor="editor" />
       </div>
       <div class="h-16 bg-gray-100 border-t border-gray-300 text-right">
-        <button @click="saveNote()" class="border-t bg-blue-400 text-white">
+        <button class="save-note" @click="saveNote()">
           Save Note
         </button>
       </div>
@@ -214,3 +214,12 @@ export default {
   },
 };
 </script>
+
+<style lang="postcss">
+  button.save-note {
+    @apply bg-none border border-gray-900 rounded py-1 px-4 mr-4 mt-3 hover:bg-gray-900 hover:text-white;
+  }
+  button.add-note {
+    @apply flex items-center justify-center h-6 w-6 ml-1 rounded hover:bg-gray-300;
+  }
+</style>
