@@ -1,5 +1,8 @@
 <template>
   <div class="flex w-screen h-screen text-gray-700">
+  <div class="w-full text-center py-2 bg-red-300 border-red-700 text-white">
+  Sorry, it looks like you're offline
+  </div>
     <div
       class="flex flex-col flex-shrink-0 w-64 border-r border-gray-300 bg-gray-100"
     >
