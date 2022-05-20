@@ -79,6 +79,7 @@ const editor = useEditor({
     },
   },
 });
+
 </script>
 
 <script>
@@ -207,6 +208,13 @@ export default {
         this.activeNote = note;
         transaction.objectStore('notes').add(note);
       });
+    },
+
+     syncUserData() {
+      if (this.isOffline) {
+        return;
+      }
+      // make my api request to an external server
     }
   
   },
@@ -216,6 +224,17 @@ export default {
     let notes = await this.getNotes();
     this.notes = notes.reverse();
   },
+
+  mounted() {
+    window.addEventListener('offline', () => {
+      this.isOffline = true;
+    });
+    window.addEventListener('online', () => {
+      this.isOffline = false;
+      // sync up a user's data with an external api
+      this.syncUserData();
+    });
+  }
 };
 </script>
 
