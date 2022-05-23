@@ -41,10 +41,12 @@ const store = createStore({
         },
         initDatabase({ commit }) {
             return new Promise((resolve, reject) => {
+
                 // initialize the database
                 let db = window.indexedDB.open("notes", 2);
+                console.log(db)
 
-                db.onerror = e => {
+                db.onerror = () => {
                     reject('Error opening the database.');
                 };
 
@@ -79,7 +81,7 @@ const store = createStore({
                 .objectStore('notes');
             let noteRequest = noteStore.get(state.activeNote.created);
 
-            noteRequest.onerror = e => {
+            noteRequest.onerror = () => {
                 console.error('Error saving the note in the database.');
             };
 
@@ -89,11 +91,11 @@ const store = createStore({
 
                 let updateRequest = noteStore.put(note);
 
-                updateRequest.onerror = e => {
+                updateRequest.onerror = () => {
                     console.error('Error storing the updated note in the database.');
                 };
 
-                updateRequest.onsuccess = e => {
+                updateRequest.onsuccess = () => {
                     let notes = state.notes;
                     let noteIndex = notes.findIndex(n => n.created === note.created);
                     notes[noteIndex] = note;
@@ -103,6 +105,7 @@ const store = createStore({
             };
         },
         addNewNote({ commit, state }) {
+            console.log(state.database)
             let transaction = state.database.transaction('notes', 'readwrite');
 
             let now = new Date();
