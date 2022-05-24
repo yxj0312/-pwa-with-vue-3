@@ -2,7 +2,10 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import './app.css'
 import './registerServiceWorker'
-import {createStore} from 'vuex'
+import { Editor } from "@tiptap/vue-3";
+import StarterKit from "@tiptap/starter-kit";
+
+import { createStore } from 'vuex'
 
 const store = createStore({
     state() {
@@ -34,6 +37,7 @@ const store = createStore({
     actions: {
         init({ dispatch }) {
             dispatch('initDatabase').then(() => {
+                dispatch('initEditor');
                 dispatch('initNotes')
             }).catch((e) => {
                 console.error(e)
@@ -41,10 +45,8 @@ const store = createStore({
         },
         initDatabase({ commit }) {
             return new Promise((resolve, reject) => {
-
                 // initialize the database
                 let db = window.indexedDB.open("notes", 2);
-                console.log(db)
 
                 db.onerror = () => {
                     reject('Error opening the database.');
@@ -66,14 +68,25 @@ const store = createStore({
                 };
             });
         },
+        initEditor({ commit }) {
+            let editor = new Editor({
+                content: "",
+                extensions: [StarterKit],
+                editorProps: {
+                  attributes: {
+                    class: "prose my-6 mx-auto focus:outline-none",
+                  },
+                },
+              });
+
+            commit('updateEditor', editor);
+        },
         initNotes({ commit, state }) {
-            // initialize the notes array
             state.database.transaction('notes')
                 .objectStore('notes')
                 .getAll()
                 .onsuccess = e => {
-                    console.log('getNotes()', e.target.result);
-                    commit('updateNotes', e.target.result);
+                    commit('updateNotes', e.target.result.reverse());
                 };
         },
         saveNote({ commit, state }) {
@@ -105,7 +118,6 @@ const store = createStore({
             };
         },
         addNewNote({ commit, state }) {
-            console.log(state.database)
             let transaction = state.database.transaction('notes', 'readwrite');
 
             let now = new Date();
@@ -114,12 +126,10 @@ const store = createStore({
                 created: now.getTime()
             };
 
-            // add that same note to the sidebar
             let notes = state.notes;
             notes.unshift(note);
             commit('updateNotes', notes);
 
-            // set the activeNote as the new note
             commit('updateActiveNote', note);
 
             transaction.objectStore('notes').add(note);
@@ -136,3 +146,5 @@ const app = createApp(App)
 app.use(store)
 
 app.mount('#app')
+
+store.dispatch('init')

@@ -1,6 +1,5 @@
 <template>
   <div class="flex flex-col flex-grow">
-    <!-- Main Content - Editor -->
     <div class="flex flex-col flex-grow overflow-auto">
       <editor-content :editor="editor" />
     </div>
@@ -10,23 +9,10 @@
   </div>
 </template>
 <script>
-import { Editor, EditorContent } from "@tiptap/vue-3";
-import StarterKit from "@tiptap/starter-kit";
+import { EditorContent } from "@tiptap/vue-3";
 export default {
   components: {
     EditorContent,
-  },
-  mounted() {
-    let editor = new Editor({
-      content: "",
-      extensions: [StarterKit],
-      editorProps: {
-        attributes: {
-          class: "prose my-6 mx-auto focus:outline-none",
-        },
-      },
-    });
-    this.$store.commit('updateEditor', editor);
   },
   computed: {
       editor() {
@@ -34,4 +20,4 @@ export default {
       }
   }
 };
-</script>
+</script> 

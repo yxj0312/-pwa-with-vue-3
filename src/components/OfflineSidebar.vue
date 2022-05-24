@@ -7,7 +7,6 @@
       bg-gray-100
     "
   >
-    <!-- Sidebar -->
     <div class="h-0 overflow-auto flex-grow">
       <div class="flex items-center h-8 px-3 group mt-4">
         <div class="flex items-center flex-grow focus:outline-none">
@@ -60,11 +59,10 @@ export default {
         },
         showAllNotes() {
             this.$store.state.editor.commands.clearContent();
-
-            // set the activeNote as an empty object
             this.$store.commit('updateActiveNote', {});
         },
         addNewNote() {
+            this.$store.state.editor.commands.clearContent();
             this.$store.dispatch('addNewNote');
         }
     },
@@ -74,4 +72,4 @@ export default {
         }
     }
 }
-</script>
+</script> 
